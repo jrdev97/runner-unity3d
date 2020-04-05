@@ -11,14 +11,17 @@ public class PlayerMovement : MonoBehaviour
 		player = GetComponent<Rigidbody>();
 
 		// Move player on the Z axis (sideways)
-		if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+		if (Input.GetKey(KeyCode.RightArrow))
 		{
-			player.AddForce(force * Time.deltaTime, 0f, 0f, ForceMode.VelocityChange);
+			player.AddForce(force * Time.fixedDeltaTime, 0f, 0f, ForceMode.VelocityChange);
 		}
-
-		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+		else if (Input.GetKey(KeyCode.LeftArrow))
 		{
-			player.AddForce(-force * Time.deltaTime, 0f, 0f, ForceMode.VelocityChange);
+			player.AddForce(-force * Time.fixedDeltaTime, 0f, 0f, ForceMode.VelocityChange);
+		}
+		else if (Input.GetKey(KeyCode.UpArrow))
+		{
+			player.AddForce(0f, 50 * force * Time.fixedDeltaTime, 0f, ForceMode.Impulse);
 		}
 	}
 }

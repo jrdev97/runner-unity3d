@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
 	public GameObject obstaclePrefab;
 	public Transform obstacles;
-	public int obstacleStartX = 100;
+	public int obstacleStartX = 0;
 
 	public GameObject deathOverlayUI;
 
@@ -76,15 +76,9 @@ public class GameManager : MonoBehaviour
 
 	private void Spawn()
 	{
-		int i;
-
-		// Spawn 2 new obstacles
-		for (i = -7; i < 7; i += 7)
-		{
-			Instantiate(obstaclePrefab,
-			            new Vector3(Mathf.Floor(Random.Range(i, i + 7)), 1, obstacleStartX),
-			            Quaternion.identity, obstacles);
-		}
+		Instantiate(obstaclePrefab,
+						new Vector3(Mathf.Floor(Random.Range(-7, 7)), 1, obstacleStartX),
+						Quaternion.identity, obstacles);
 	}
 
 	private void Update()
@@ -120,6 +114,6 @@ public class GameManager : MonoBehaviour
 		fade.BeginFade(-1);
 
 		// Invoke obstacle spawning, frequency depends on difficulty
-		InvokeRepeating("Spawn", 1f, 0.5f / difficulty);
+		InvokeRepeating("Spawn", 1f, 2f / difficulty);
 	}
 }
